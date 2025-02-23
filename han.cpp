@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 using namespace std;
 
-void vizualization(int towers[][3]) {
+void vizualization(int**& towers) {
     //cout << towers[0][0] << towers[0][1] << towers[0][2] << endl;
     //cout << towers[1][0] << towers[1][1] << towers[1][2] << endl;
     int height = towers[0][0]+towers[0][1]+towers[0][2];
@@ -28,7 +28,7 @@ void vizualization(int towers[][3]) {
     return;
 }
 
-void debug(int towers[][3]) {
+void debug(int**& towers) {
     cout << endl;
     for (int i=0;i<4; i++) {
         for (int j=0;j<3; j++) {cout << towers[i][j] << " ";}
@@ -37,7 +37,7 @@ void debug(int towers[][3]) {
     cout << endl;
 }
 
-void han(int towers[][3], int n, int start, int point, int temp) {
+void han(int**& towers, int n, int start, int point, int temp) {
     if (n != 0) {
         han(towers, n - 1, start, temp, point);
 
@@ -65,12 +65,13 @@ int main()
     while (true) {
         cout << "Введите количество дисков: ";
         cin >> n;
-        int towers[n+1][3]={};
-        towers[0][0] = n;
         cout << endl;
 
         if(n>=0) {
+        int** towers = new int*[n+1];
+        for(int i = 0; i<n+1 ;i++) towers[i] = new int[3]{};
             for(int i = 1; i<n+1 ;i++) towers[i][0]=n+1-i;
+                    towers[0][0] = n;
             vizualization(towers);
             han(towers, n, 1, 3, 2);
         }
